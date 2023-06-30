@@ -141,7 +141,7 @@ class MainScene extends Phaser.Scene {
                 if (acum == 7){
                     acum = 0;
                     mContext.generateVirus();
-                }
+                } 
             });
         });
     }
@@ -156,7 +156,9 @@ class MainScene extends Phaser.Scene {
             cronometro--;
             displayCronometro.setText("0:"+cronometro);        
             if (cronometro == 0){
+                // Juego terminado
                 buttonReset.visible = true;     
+                fireworks.style.visibility='visible';
                 clearInterval(interval);
                 virus.forEach((elem) => {
                     elem[0].disableInteractive();
