@@ -1,4 +1,5 @@
 let pulmones;
+let buttonStart;
 let respiracion = true; //true inhala, false exhala 
 let virusMove = true;
 let score = 0; 
@@ -51,7 +52,8 @@ class MainScene extends Phaser.Scene {
         this.load.image('header', './assets/img/header.png');
         this.load.image('marcador', './assets/img/marcador.png');
         this.load.image('cronometro', './assets/img/cronometro.png');
-        this.load.image('logo', './assets/img/logo.png'); 
+        this.load.image('logo', './assets/img/logo.png');
+        this.load.image('play', './assets/img/play.png');
     }
  
     create(){
@@ -61,12 +63,24 @@ class MainScene extends Phaser.Scene {
         this.add.image(257, 125, 'header').setScale(.5);
         this.add.image(95, 285, 'marcador').setScale(.4);
         this.add.image(420, 285, 'cronometro').setScale(.4);
-        displayScore = this.add.text(95, 280, "0"+score, { font: '32px Courier', fill: '#ff0000' });
+        buttonStart = this.add.sprite(460, 950, 'play').setScale(.4).setInteractive();
+        displayScore = this.add.text(75, 280, score, { font: '32px Courier', fill: '#ff0000' });
         displayCronometro = this.add.text(382, 280, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
 
-        // Virus left
-        this.generateVirus();
-        this.startCronometro();        
+        buttonStart.on('pointerdown', function (pointer){   
+            buttonStart.setScale(.45) 
+            mContext.generateVirus();
+            mContext.startCronometro();
+            buttonStart.destroy();                        
+        });
+
+        buttonStart.on('pointerover', function (pointer){   
+            buttonStart.setScale(.45)         
+        });
+
+        buttonStart.on('pointerout', function (pointer){   
+            buttonStart.setScale(.4)         
+        });
 
         this.add.image(257, 750, 'hero').setScale(.5);
         this.add.image(257, 940, 'productos').setScale(.5);        
@@ -99,6 +113,7 @@ class MainScene extends Phaser.Scene {
                 elem[0].setTexture('logo');
                 mContext.addScore(elem[1]);
                 elem[0].disableInteractive();
+                elem[0].setDepth(0);                
 
                 acum++;
                 if (acum == 7){
@@ -111,11 +126,7 @@ class MainScene extends Phaser.Scene {
 
     addScore(num){
         score += num;
-        if (score < 10){
-            displayScore.setText("0"+score);
-        }else {
-            displayScore.setText(score);
-        }
+        displayScore.setText(score);
     }
 
     startCronometro(){
