@@ -73,7 +73,7 @@ class MainScene extends Phaser.Scene {
         this.add.image(95, 285, 'marcador').setScale(.4);
         this.add.image(420, 285, 'cronometro').setScale(.4);
         buttonStart = this.add.sprite(256, 512, 'play').setScale(.8).setInteractive();
-        buttonReset = this.add.sprite(256, 512, 'reset').setScale(.8).setInteractive();
+        buttonReset = this.add.sprite(256, 650, 'reset').setScale(.5).setInteractive();
         buttonReset.visible = false;
         displayScore = this.add.text(75, 280, score, { font: '32px Courier', fill: '#ff0000' });
         displayCronometro = this.add.text(382, 280, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
@@ -83,7 +83,7 @@ class MainScene extends Phaser.Scene {
             buttonStart.setScale(.45) 
             mContext.generateVirus();
             mContext.startCronometro();
-            buttonStart.destroy();                   
+            buttonStart.destroy();                  
         });
 
         buttonStart.on('pointerover', function (pointer){   
@@ -174,8 +174,9 @@ class MainScene extends Phaser.Scene {
                 buttonReset.visible = true;     
                 fireworks.style.visibility='visible';
                 clearInterval(interval);
+                
                 virus.forEach((elem) => {
-                    elem[0].disableInteractive();
+                    mContext.deleteElem(elem[0]);
                 });
             }
         }, 500);        
