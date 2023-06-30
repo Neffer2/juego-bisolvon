@@ -9,6 +9,10 @@ let displayScore;
 let displayCronometro;
 let mContext;
 
+// Sound
+let music;
+let destroyVirus;
+
 let positions = Array(
     [130, 450],
     [160, 590],
@@ -56,6 +60,9 @@ class MainScene extends Phaser.Scene {
         this.load.image('logo', './assets/img/logo.png');
         this.load.image('play', './assets/img/play.png');
         this.load.image('reset', './assets/img/reset.png');
+
+        this.load.audio('background_music', [ './assets/sounds/back.wav']);
+        this.load.audio('destroyVirus', [ './assets/sounds/click.wav']);
     }
  
     create(){
@@ -65,8 +72,8 @@ class MainScene extends Phaser.Scene {
         this.add.image(257, 125, 'header').setScale(.5);
         this.add.image(95, 285, 'marcador').setScale(.4);
         this.add.image(420, 285, 'cronometro').setScale(.4);
-        buttonStart = this.add.sprite(460, 950, 'play').setScale(.4).setInteractive();
-        buttonReset = this.add.sprite(460, 950, 'reset').setScale(.4).setInteractive();
+        buttonStart = this.add.sprite(256, 512, 'play').setScale(.8).setInteractive();
+        buttonReset = this.add.sprite(256, 512, 'reset').setScale(.8).setInteractive();
         buttonReset.visible = false;
         displayScore = this.add.text(75, 280, score, { font: '32px Courier', fill: '#ff0000' });
         displayCronometro = this.add.text(382, 280, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
@@ -80,11 +87,11 @@ class MainScene extends Phaser.Scene {
         });
 
         buttonStart.on('pointerover', function (pointer){   
-            buttonStart.setScale(.45)         
+            buttonStart.setScale(.85)         
         });
 
         buttonStart.on('pointerout', function (pointer){   
-            buttonStart.setScale(.4)         
+            buttonStart.setScale(.8)         
         });
 
         // Reset
@@ -93,15 +100,21 @@ class MainScene extends Phaser.Scene {
         });
 
         buttonReset.on('pointerover', function (pointer){   
-            buttonReset.setScale(.45)         
+            buttonReset.setScale(.85)         
         });
 
         buttonReset.on('pointerout', function (pointer){   
-            buttonReset.setScale(.4)         
+            buttonReset.setScale(.8)         
         });
 
         this.add.image(257, 750, 'hero').setScale(.5);
         this.add.image(257, 940, 'productos').setScale(.5);        
+
+        // Audio
+        music = this.sound.add('background_music', {volume: .35});
+        destroyVirus = this.sound.add('destroyVirus');
+        music.loop = true;
+        music.play();
     }    
 
     generateVirus(){
@@ -131,6 +144,7 @@ class MainScene extends Phaser.Scene {
                 elem[0].setTexture('logo');
                 mContext.addScore(elem[1]);
                 elem[0].disableInteractive();
+                destroyVirus.play();
                 
 
                 setTimeout(function(){
