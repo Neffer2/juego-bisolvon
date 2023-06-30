@@ -1,5 +1,6 @@
 let pulmones;
 let buttonStart;
+let buttonReset;
 let respiracion = true; //true inhala, false exhala 
 let virusMove = true;
 let score = 0; 
@@ -54,6 +55,7 @@ class MainScene extends Phaser.Scene {
         this.load.image('cronometro', './assets/img/cronometro.png');
         this.load.image('logo', './assets/img/logo.png');
         this.load.image('play', './assets/img/play.png');
+        this.load.image('reset', './assets/img/reset.png');
     }
  
     create(){
@@ -64,14 +66,17 @@ class MainScene extends Phaser.Scene {
         this.add.image(95, 285, 'marcador').setScale(.4);
         this.add.image(420, 285, 'cronometro').setScale(.4);
         buttonStart = this.add.sprite(460, 950, 'play').setScale(.4).setInteractive();
+        buttonReset = this.add.sprite(460, 950, 'reset').setScale(.4).setInteractive();
+        buttonReset.visible = false;
         displayScore = this.add.text(75, 280, score, { font: '32px Courier', fill: '#ff0000' });
         displayCronometro = this.add.text(382, 280, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
 
+        // Start
         buttonStart.on('pointerdown', function (pointer){   
             buttonStart.setScale(.45) 
             mContext.generateVirus();
             mContext.startCronometro();
-            buttonStart.destroy();                        
+            buttonStart.destroy();                   
         });
 
         buttonStart.on('pointerover', function (pointer){   
@@ -80,6 +85,19 @@ class MainScene extends Phaser.Scene {
 
         buttonStart.on('pointerout', function (pointer){   
             buttonStart.setScale(.4)         
+        });
+
+        // Reset
+        buttonReset.on('pointerdown', function (pointer){   
+            location.reload();
+        });
+
+        buttonReset.on('pointerover', function (pointer){   
+            buttonReset.setScale(.45)         
+        });
+
+        buttonReset.on('pointerout', function (pointer){   
+            buttonReset.setScale(.4)         
         });
 
         this.add.image(257, 750, 'hero').setScale(.5);
@@ -113,7 +131,11 @@ class MainScene extends Phaser.Scene {
                 elem[0].setTexture('logo');
                 mContext.addScore(elem[1]);
                 elem[0].disableInteractive();
-                elem[0].setDepth(0);                
+                
+
+                setTimeout(function(){
+                    mContext.deleteElem(elem[0]);
+                }, 1500);
 
                 acum++;
                 if (acum == 7){
@@ -133,13 +155,18 @@ class MainScene extends Phaser.Scene {
         const interval = setInterval(() => {
             cronometro--;
             displayCronometro.setText("0:"+cronometro);        
-            if (cronometro == 0){ 
+            if (cronometro == 0){
+                buttonReset.visible = true;     
                 clearInterval(interval);
                 virus.forEach((elem) => {
                     elem[0].disableInteractive();
                 });
             }
-        }, 1000);        
+        }, 500);        
+    }
+
+    deleteElem(elem){
+        elem.destroy();
     }
 
     getRandomInt(max) {
