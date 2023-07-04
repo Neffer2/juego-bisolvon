@@ -14,23 +14,25 @@ let music;
 let destroyVirus;
 
 let positions = Array(
-    [130, 450],
+    [150, 450],
     [160, 590],
     [190, 520],
 
-    [220, 420],
-    [250, 555],
-    [280, 580],
-    [310, 630],
+    [220, 440],
+
+    [290, 555],
+
+    [295, 580],
+    [310, 600],
 
     [340, 590],
     [370, 549],
-    [400, 440],
+    [400, 450],
 
-    [430, 460],
-    [460, 530],
+    [330, 460],
+    [390, 530],
     [310, 540],
-    [420, 475]
+    [380, 475]
 );
 let aux;
 
@@ -53,13 +55,14 @@ class MainScene extends Phaser.Scene {
         this.load.image('virus6', './assets/img/virus_6.png');
         this.load.image('virus7', './assets/img/virus_7.png');
         this.load.image('hero', './assets/img/hero.png');
-        this.load.image('productos', './assets/img/productos.png');
+        this.load.image('productos-2', './assets/img/productos-2.png');
         this.load.image('header', './assets/img/header.png');
         this.load.image('marcador', './assets/img/marcador.png');
         this.load.image('cronometro', './assets/img/cronometro.png');
         this.load.image('logo', './assets/img/logo.png');
         this.load.image('play', './assets/img/play.png');
         this.load.image('reset', './assets/img/reset.png');
+        this.load.image('expertos', './assets/img/expertos.png');
 
         this.load.audio('background_music', [ './assets/sounds/back.wav']);
         this.load.audio('destroyVirus', [ './assets/sounds/click.wav']);
@@ -70,13 +73,14 @@ class MainScene extends Phaser.Scene {
         this.getContext();
         pulmones = this.add.image(257, 500, 'pulmones').setScale(.38, .5);
         this.add.image(257, 125, 'header').setScale(.5);
-        this.add.image(95, 285, 'marcador').setScale(.4);
-        this.add.image(420, 285, 'cronometro').setScale(.4);
+        this.add.image(95, 255, 'marcador').setScale(.4);
+        this.add.image(95, 335, 'cronometro').setScale(.4);
         buttonStart = this.add.sprite(256, 512, 'play').setScale(.8).setInteractive();
         buttonReset = this.add.sprite(256, 650, 'reset').setScale(.5).setInteractive();
         buttonReset.visible = false;
-        displayScore = this.add.text(75, 280, score, { font: '32px Courier', fill: '#ff0000' });
-        displayCronometro = this.add.text(382, 280, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
+        displayScore = this.add.text(92, 250, score, { font: '32px Courier', fill: '#ff0000' });
+        displayCronometro = this.add.text(58, 330, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
+        this.add.image(420, 290, 'expertos').setScale(.4);
 
         // Start
         buttonStart.on('pointerdown', function (pointer){   
@@ -108,13 +112,13 @@ class MainScene extends Phaser.Scene {
         });
 
         this.add.image(257, 750, 'hero').setScale(.5);
-        this.add.image(257, 940, 'productos').setScale(.5);        
+        this.add.image(262, 940, 'productos-2').setScale(.5);        
 
         // Audio
         music = this.sound.add('background_music', {volume: .35});
         destroyVirus = this.sound.add('destroyVirus');
         music.loop = true;
-        music.play();
+        // music.play();
     }    
 
     generateVirus(){
