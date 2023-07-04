@@ -118,7 +118,7 @@ class MainScene extends Phaser.Scene {
         music = this.sound.add('background_music', {volume: .35});
         destroyVirus = this.sound.add('destroyVirus');
         music.loop = true;
-        // music.play();
+        music.play();
     }    
 
     generateVirus(){
