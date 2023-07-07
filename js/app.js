@@ -60,6 +60,7 @@ class MainScene extends Phaser.Scene {
         this.load.image('marcador', './assets/img/marcador.png');
         this.load.image('cronometro', './assets/img/cronometro.png');
         this.load.image('logo', './assets/img/logo.png');
+        this.load.image('logo2', './assets/img/circulo_amarillo.png');
         this.load.image('play', './assets/img/play.png');
         this.load.image('reset', './assets/img/reset.png');
         this.load.image('expertos', './assets/img/expertos.png');
@@ -145,7 +146,7 @@ class MainScene extends Phaser.Scene {
         virus.forEach((elem) => {
             elem[0].setInteractive();
             elem[0].on('pointerdown', function (pointer){   
-                elem[0].setTexture('logo');
+                elem[0].setTexture('logo2');
                 mContext.addScore(elem[1]);
                 elem[0].disableInteractive();
                 destroyVirus.play();
