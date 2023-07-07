@@ -72,15 +72,15 @@ class MainScene extends Phaser.Scene {
         let background = this.add.image(257, 500, 'background').setScale(.48, .5);
         this.getContext();
         pulmones = this.add.image(257, 500, 'pulmones').setScale(.38, .5);
-        this.add.image(257, 125, 'header').setScale(.5);
+        // this.add.image(257, 125, 'header').setScale(.5);
         this.add.image(95, 255, 'marcador').setScale(.4);
         this.add.image(95, 335, 'cronometro').setScale(.4);
+        // this.add.image(420, 290, 'expertos').setScale(.4);
         buttonStart = this.add.sprite(256, 512, 'play').setScale(.8).setInteractive();
         buttonReset = this.add.sprite(256, 650, 'reset').setScale(.5).setInteractive();
         buttonReset.visible = false;
         displayScore = this.add.text(92, 250, score, { font: '32px Courier', fill: '#ff0000' });
         displayCronometro = this.add.text(58, 330, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
-        this.add.image(420, 290, 'expertos').setScale(.4);
 
         // Start
         buttonStart.on('pointerdown', function (pointer){   
@@ -111,8 +111,8 @@ class MainScene extends Phaser.Scene {
             buttonReset.setScale(.8)         
         });
 
-        this.add.image(257, 750, 'hero').setScale(.5);
-        this.add.image(262, 940, 'productos-2').setScale(.5);        
+        // this.add.image(257, 750, 'hero').setScale(.5);
+        // this.add.image(262, 940, 'productos-2').setScale(.5);        
 
         // Audio
         music = this.sound.add('background_music', {volume: .35});
