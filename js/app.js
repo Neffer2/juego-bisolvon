@@ -14,25 +14,25 @@ let music;
 let destroyVirus;
 
 let positions = Array(
-    [150, 450],
-    [160, 590],
-    [190, 520],
+    [150, 410],
+    [160, 550],
+    [190, 480],
 
-    [220, 440],
+    [220, 400],
 
-    [290, 555],
+    [290, 515],
 
-    [295, 580],
-    [310, 600],
+    [295, 540],
+    [310, 560],
 
-    [340, 590],
-    [370, 549],
-    [400, 450],
+    [340, 550],
+    [370, 509],
+    [400, 410],
 
-    [330, 460],
-    [390, 530],
-    [310, 540],
-    [380, 475]
+    [330, 420],
+    [390, 490],
+    [310, 500],
+    [380, 435]
 );
 let aux;
 
@@ -64,6 +64,7 @@ class MainScene extends Phaser.Scene {
         this.load.image('play', './assets/img/play.png');
         this.load.image('reset', './assets/img/reset.png');
         this.load.image('expertos', './assets/img/expertos.png');
+        this.load.image('text', './assets/img/text.png');
 
         this.load.audio('background_music', [ './assets/sounds/back.wav']);
         this.load.audio('destroyVirus', [ './assets/sounds/click.wav']);
@@ -72,13 +73,13 @@ class MainScene extends Phaser.Scene {
     create(){
         let background = this.add.image(257, 500, 'background').setScale(.48, .5);
         this.getContext();
-        pulmones = this.add.image(257, 500, 'pulmones').setScale(.38, .5);
-        // this.add.image(257, 125, 'header').setScale(.5);
+        pulmones = this.add.image(257, 440, 'pulmones').setScale(.40);
+        this.add.image(257, 125, 'header').setScale(.5);
         this.add.image(95, 255, 'marcador').setScale(.4);
         this.add.image(95, 335, 'cronometro').setScale(.4);
-        // this.add.image(420, 290, 'expertos').setScale(.4);
-        buttonStart = this.add.sprite(256, 512, 'play').setScale(.8).setInteractive();
-        buttonReset = this.add.sprite(256, 650, 'reset').setScale(.5).setInteractive();
+        this.add.image(420, 290, 'expertos').setScale(.4);
+        buttonStart = this.add.sprite(256, 500, 'play').setScale(.8).setInteractive();
+        buttonReset = this.add.sprite(256, 500, 'reset').setScale(.8).setInteractive();
         buttonReset.visible = false;
         displayScore = this.add.text(92, 250, score, { font: '32px Courier', fill: '#ff0000' });
         displayCronometro = this.add.text(58, 330, "0:"+cronometro, { font: '32px Courier', fill: '#ff0000' });
@@ -112,14 +113,15 @@ class MainScene extends Phaser.Scene {
             buttonReset.setScale(.8)         
         });
 
-        // this.add.image(257, 750, 'hero').setScale(.5);
-        // this.add.image(262, 940, 'productos-2').setScale(.5);        
+        this.add.image(257, 640, 'hero').setScale(.45);
+        this.add.image(262, 820, 'productos-2').setScale(.5);        
+        this.add.image(257, 960, 'text').setScale(.40, .55);
 
         // Audio
         music = this.sound.add('background_music', {volume: .35});
         destroyVirus = this.sound.add('destroyVirus');
         music.loop = true;
-        music.play();
+        // music.play();
     }    
 
     generateVirus(){
@@ -211,10 +213,10 @@ class MainScene extends Phaser.Scene {
     update(){
         if (respiracion){
             pulmones.scale += .0013;
-            respiracion = pulmones.scale >= .6 ? !respiracion : respiracion;
+            respiracion = pulmones.scale >= .40 ? !respiracion : respiracion;
         }else if (!respiracion) {
             pulmones.scale -= .0013;
-            respiracion = pulmones.scale <= .5 ? !respiracion : respiracion;            
+            respiracion = pulmones.scale <= .35 ? !respiracion : respiracion;            
         }        
 
 
