@@ -114,14 +114,14 @@ class MainScene extends Phaser.Scene {
         });
 
         this.add.image(257, 640, 'hero').setScale(.45);
-        this.add.image(262, 820, 'productos-2').setScale(.5);        
-        this.add.image(257, 960, 'text').setScale(.40, .55);
+        this.add.image(262, 815, 'productos-2').setScale(.5);        
+        this.add.image(257, 960, 'text').setScale(.9);
 
         // Audio
         music = this.sound.add('background_music', {volume: .35});
         destroyVirus = this.sound.add('destroyVirus');
         music.loop = true;
-        // music.play();
+        music.play();
     }    
 
     generateVirus(){
